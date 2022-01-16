@@ -20,25 +20,25 @@ final class ProgressBar private (factor: Int) extends (Double => String):
     // format: on
 
   // format: off
-  val   `0%`: String = s"$le${mf * 0}${me * 8}$re"
-  val  `10%`: String = s"$lf${mf * 0}${me * 8}$re"
-  val  `20%`: String = s"$lf${mf * 1}${me * 7}$re"
-  val  `30%`: String = s"$lf${mf * 2}${me * 6}$re"
-  val  `40%`: String = s"$lf${mf * 3}${me * 5}$re"
-  val  `50%`: String = s"$lf${mf * 4}${me * 4}$re"
-  val  `60%`: String = s"$lf${mf * 5}${me * 3}$re"
-  val  `70%`: String = s"$lf${mf * 6}${me * 2}$re"
-  val  `80%`: String = s"$lf${mf * 7}${me * 1}$re"
-  val  `90%`: String = s"$lf${mf * 8}${me * 0}$re"
-  val `100%`: String = s"$lf${mf * 8}${me * 0}$rf"
+  lazy val   `0%`: String = s"$le${mf * 0}${me * 8}$re"
+  lazy val  `10%`: String = s"$lf${mf * 0}${me * 8}$re"
+  lazy val  `20%`: String = s"$lf${mf * 1}${me * 7}$re"
+  lazy val  `30%`: String = s"$lf${mf * 2}${me * 6}$re"
+  lazy val  `40%`: String = s"$lf${mf * 3}${me * 5}$re"
+  lazy val  `50%`: String = s"$lf${mf * 4}${me * 4}$re"
+  lazy val  `60%`: String = s"$lf${mf * 5}${me * 3}$re"
+  lazy val  `70%`: String = s"$lf${mf * 6}${me * 2}$re"
+  lazy val  `80%`: String = s"$lf${mf * 7}${me * 1}$re"
+  lazy val  `90%`: String = s"$lf${mf * 8}${me * 0}$re"
+  lazy val `100%`: String = s"$lf${mf * 8}${me * 0}$rf"
   // format: on
 
-  private lazy val le = "" + me.drop(1)
-  private lazy val lf = "" + mf.drop(1)
+  private lazy val le = me.updated(0, '')
+  private lazy val lf = mf.updated(0, '')
   private lazy val me = "" * f
   private lazy val mf = "" * f
-  private lazy val re = me.dropRight(1) + ""
-  private lazy val rf = mf.dropRight(1) + ""
+  private lazy val re = me.updated(me.length - 1, '')
+  private lazy val rf = mf.updated(mf.length - 1, '')
   private lazy val f = factor.inside(1 to 10)
 
   extension (self: Int)
@@ -52,5 +52,5 @@ final class ProgressBar private (factor: Int) extends (Double => String):
       self max f min t
 
 object ProgressBar:
-  def make(factor: Int = 1): ProgressBar =
+  def make(factor: Int): ProgressBar =
     ProgressBar(factor)

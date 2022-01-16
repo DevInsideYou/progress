@@ -11,4 +11,4 @@ object Style:
   lazy val All: NonEmptyIndexedSeq[String] =
     import Console.*
 
-    NonEmptyIndexedSeq.unsafe(IndexedSeq(BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, WHITE, YELLOW))
+    NonEmptyIndexedSeq(BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, WHITE, YELLOW)

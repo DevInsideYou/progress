@@ -22,8 +22,9 @@ package progress
   clearPrint()
 
 def printProgressBarln(style: String, factor: Int): Unit =
+  val renderedProgressBar = ProgressBar.make(factor)
+
   for percentage <- 0 to 100 do
-    val renderedProgressBar = ProgressBar.make(factor)
     val progressBar = renderedProgressBar(percentage)
     val styledProgressBar = progressBar in style
 
@@ -32,6 +33,17 @@ def printProgressBarln(style: String, factor: Int): Unit =
     Thread.sleep(5)
 
   println()
+
+def printProgressCircle(style: String): Unit =
+  val renderedSegment = ProgressCircleSegment.make()
+
+  for _ <- 1 to 6 do
+    val segment = renderedSegment()
+    val styledSegment = segment in style
+
+    clearPrint(" " + styledSegment + " ")
+
+    Thread.sleep(200)
 
 def clearPrint(in: Any = ""): Unit =
   val ReplaceEveryCharOfLineWithSpace = "\u001b[2K"
@@ -42,14 +54,3 @@ def clearPrint(in: Any = ""): Unit =
 extension (self: Any)
   infix def in(style: String): String =
     style + self + Console.RESET
-
-def printProgressCircle(style: String): Unit =
-  val renderSegment = ProgressCircleSegment.make()
-
-  for _ <- 1 to 6 do
-    val segment = renderSegment()
-    val styledSegment = segment in style
-
-    clearPrint(" " + styledSegment + " ")
-
-    Thread.sleep(200)
